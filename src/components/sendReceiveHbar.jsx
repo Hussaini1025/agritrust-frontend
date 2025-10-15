@@ -12,11 +12,13 @@ export default function SendReceiveHbar() {
 
   const handleSend = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/send-hbar", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ to, amount }),
-      });
+const apiUrl = import.meta.env.VITE_API_URL;
+
+await fetch(`${apiUrl}/api/transfer`, {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ accountId, amount }),
+});
 
       const data = await response.json();
       if (response.ok) {
